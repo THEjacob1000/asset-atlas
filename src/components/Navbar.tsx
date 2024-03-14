@@ -58,7 +58,7 @@ const Navbar = () => {
             className="px-4 py-3 rounded-md justify-center items-center gap-2 flex hover:bg-background/40"
             variant={"ghost"}
             aria-label="home"
-            onClick={() => router.push("/portfolio")}
+            onClick={() => router.push("/")}
           >
             <Home className="w-6 h-6" />
             <div
