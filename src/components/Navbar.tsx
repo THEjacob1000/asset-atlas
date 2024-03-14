@@ -13,6 +13,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { ModeToggle } from "./ModeToggle";
 
 type Currency = {
   symbol: string;
@@ -114,6 +115,7 @@ const Navbar = () => {
                 ))}
             </DropdownMenuContent>
           </DropdownMenu>
+          <ModeToggle />
         </div>
       </nav>
     </div>
