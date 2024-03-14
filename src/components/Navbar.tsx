@@ -1,5 +1,5 @@
 "use client";
-import { ChevronDown, Home, Layers, Search } from "lucide-react";
+import { ChevronDown, Home, Layers } from "lucide-react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import {
@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
+import Searchbar from "./Searchbar";
 
 type Currency = {
   symbol: string;
@@ -88,6 +89,7 @@ const Navbar = () => {
           </Button>
         </div>
         <div className="flex justify-between w-1/4 items-center gap-2">
+          <Searchbar />
           <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none">
               <div className="flex bg-card/40 px-3 py-2 rounded-lg h-10">
