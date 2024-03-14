@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -38,6 +38,7 @@ const Navbar = () => {
   const changeCurrency = (currency: Currency) => {
     setCurrency(currency);
   };
+  const router = useRouter();
   return (
     <div className="flex flex-col w-full fixed top-0 z-10 h-36">
       <nav
@@ -53,40 +54,38 @@ const Navbar = () => {
           </div>
         </Link>
         <div className="w-[265px] h-12 justify-start items-start gap-6 hidden md:inline-flex">
-          <Link href="/">
-            <Button
-              className="px-4 py-3 rounded-md justify-center items-center gap-2 flex hover:bg-background/40"
-              variant={"ghost"}
-              aria-label="home"
-            >
-              <Home className="w-6 h-6" />
-              <div
-                className={cn(
-                  "text-base font-medium font-['Space Grotesk']",
-                  pathname === "/" &&
-                    "font-bold underline-offset-4 underline"
-                )}
-              >
-                Home
-              </div>
-            </Button>
-          </Link>
-          <Link href="/portfolio">
-            <Button
+          <Button
+            className="px-4 py-3 rounded-md justify-center items-center gap-2 flex hover:bg-background/40"
+            variant={"ghost"}
+            aria-label="home"
+            onClick={() => router.push("/portfolio")}
+          >
+            <Home className="w-6 h-6" />
+            <div
               className={cn(
-                "px-4 py-3 rounded-md justify-center items-center gap-2 flex hover:bg-background/40",
-                pathname === "/portfolio" &&
+                "text-base font-medium font-['Space Grotesk']",
+                pathname === "/" &&
                   "font-bold underline-offset-4 underline"
               )}
-              variant={"ghost"}
-              aria-label="home"
             >
-              <Layers className="w-6 h-6" />
-              <div className="text-opacity-50 text-base font-normal font-['Space Grotesk']">
-                Portfolio
-              </div>
-            </Button>
-          </Link>
+              Home
+            </div>
+          </Button>
+          <Button
+            className={cn(
+              "px-4 py-3 rounded-md justify-center items-center gap-2 flex hover:bg-background/40",
+              pathname === "/portfolio" &&
+                "font-bold underline-offset-4 underline"
+            )}
+            variant={"ghost"}
+            aria-label="home"
+            onClick={() => router.push("/portfolio")}
+          >
+            <Layers className="w-6 h-6" />
+            <div className="text-opacity-50 text-base font-normal font-['Space Grotesk']">
+              Portfolio
+            </div>
+          </Button>
         </div>
         <div className="flex justify-between w-1/4 items-center gap-2">
           <DropdownMenu>
