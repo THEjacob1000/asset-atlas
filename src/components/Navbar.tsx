@@ -51,7 +51,7 @@ const Navbar = () => {
         <Link href="/" className="flex items-center justify-between">
           <Image src="/logo.svg" alt="Logo" width={72} height={40} />
           <div className="text-foreground text-xl font-bold ml-8 md:block hidden">
-            CoinPulse
+            Asset Atlas
           </div>
         </Link>
         <div className="w-[265px] h-12 justify-start items-start gap-6 hidden md:inline-flex">
