@@ -15,6 +15,7 @@ import { Button } from "./ui/button";
 import { useCryptoStore } from "@/lib/store";
 import { Coin } from "@/lib/types";
 import Image from "next/image";
+import { capitalizeWords } from "@/lib/utils";
 
 const Searchbar = () => {
   const [open, setOpen] = useState(false);
@@ -36,7 +37,7 @@ const Searchbar = () => {
             .map((coin, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-2 hover:bg-card/70 cursor-pointer"
+                className="flex items-center justify-start p-2 hover:bg-card/70 cursor-pointer gap-2"
               >
                 <Image
                   src={coin.image}
@@ -44,15 +45,14 @@ const Searchbar = () => {
                   height={24}
                   alt={coin.id}
                 />
-                <div>
-                  ({coin.symbol}) {coin.id}
-                </div>
+                <div>({coin.symbol.toLocaleUpperCase()})</div>
+                <div>{capitalizeWords(coin.id)}</div>
               </div>
             ))
         : coins.map((coin, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-2 hover:bg-card/70 cursor-pointer"
+              className="flex items-center justify-start p-2 hover:bg-card/70 cursor-pointer gap-2"
             >
               <Image
                 src={coin.image}
@@ -60,9 +60,8 @@ const Searchbar = () => {
                 height={24}
                 alt={coin.id}
               />
-              <div>
-                ({coin.symbol}) {coin.id}
-              </div>
+              <div>({coin.symbol.toLocaleUpperCase()})</div>
+              <div>{capitalizeWords(coin.id)}</div>
             </div>
           ))}
     </ScrollArea>
@@ -70,7 +69,7 @@ const Searchbar = () => {
 
   if (isDesktop) {
     return (
-      <Popover open={open} setOpen={setOpen} className="w-full">
+      <Popover open={open}>
         <PopoverTrigger asChild className="w-full">
           <div
             ref={triggerRef}
