@@ -15,17 +15,14 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import Searchbar from "./Searchbar";
-
-type Currency = {
-  symbol: string;
-  currency: string;
-};
+import { Currency } from "@/lib/types";
+import { useCryptoStore } from "@/lib/store";
+import MarketData from "./MarketData";
 
 const Navbar = () => {
-  const [currency, setCurrency] = useState({
-    symbol: "$",
-    currency: "USD",
-  });
+  const [currency, setCurrency] = useState(
+    useCryptoStore.getState().currency
+  );
   const currencies: Currency[] = [
     { symbol: "$", currency: "USD" },
     { symbol: "₹", currency: "INR" },
@@ -36,12 +33,18 @@ const Navbar = () => {
   ];
   const pathname = usePathname();
   const { theme } = useTheme();
+
   const changeCurrency = (currency: Currency) => {
     setCurrency(currency);
+    useCryptoStore.getState().changeCurrency(currency);
   };
+
   const router = useRouter();
   return (
     <div className="flex flex-col w-full fixed top-0 z-10 h-36">
+      <div className="hidden md:block">
+        <MarketData />
+      </div>
       <nav
         className={cn(
           "flex justify-around items-center py-6 min-w-full max-h-24 fixed md:top-12 z-10 h-24",
@@ -119,6 +122,9 @@ const Navbar = () => {
           <ModeToggle />
         </div>
       </nav>
+      <div className="block md:hidden">
+        <MarketData />
+      </div>
     </div>
   );
 };
