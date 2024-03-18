@@ -12,24 +12,19 @@ import { ScrollArea } from "./ui/scroll-area";
 import useClosePopover from "@/hooks/closePopover";
 import useMediaQuery from "@/hooks/use-media-query";
 import { Button } from "./ui/button";
-
-const demoCoins = [
-  { label: "Bitcoin", value: "BTC" },
-  { label: "Ethereum", value: "ETH" },
-  { label: "Cardano", value: "ADA" },
-];
+import { useCryptoStore } from "@/lib/store";
+import { Coin } from "@/lib/types";
+import Image from "next/image";
+import { capitalizeWords } from "@/lib/utils";
 
 const Searchbar = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const cryptoData = useCryptoStore((state) => state.cryptoData);
 
   const triggerRef = useRef(null);
-  type Coin = {
-    label: string;
-    value: string;
-  };
-  const coins: Coin[] = demoCoins;
+  const coins: Coin[] = cryptoData;
   useClosePopover(triggerRef, setOpen);
 
   const content = (
@@ -37,24 +32,36 @@ const Searchbar = () => {
       {value
         ? coins
             .filter((coin) =>
-              coin.label.toLowerCase().includes(value.toLowerCase())
+              coin.id.toLowerCase().includes(value.toLowerCase())
             )
             .map((coin, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-2 hover:bg-card/70 cursor-pointer"
+                className="flex items-center justify-start p-2 hover:bg-card/70 cursor-pointer gap-2"
               >
-                <div>{coin.label}</div>
-                <div>{coin.value}</div>
+                <Image
+                  src={coin.image}
+                  width={24}
+                  height={24}
+                  alt={coin.id}
+                />
+                <div>({coin.symbol.toLocaleUpperCase()})</div>
+                <div>{capitalizeWords(coin.id)}</div>
               </div>
             ))
         : coins.map((coin, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-2 hover:bg-card/50 cursor-pointer"
+              className="flex items-center justify-start p-2 hover:bg-card/70 cursor-pointer gap-2"
             >
-              <div>{coin.label}</div>
-              <div>{coin.value}</div>
+              <Image
+                src={coin.image}
+                width={24}
+                height={24}
+                alt={coin.id}
+              />
+              <div>({coin.symbol.toLocaleUpperCase()})</div>
+              <div>{capitalizeWords(coin.id)}</div>
             </div>
           ))}
     </ScrollArea>
@@ -62,7 +69,7 @@ const Searchbar = () => {
 
   if (isDesktop) {
     return (
-      <Popover open={open} setOpen={setOpen} className="w-full">
+      <Popover open={open}>
         <PopoverTrigger asChild className="w-full">
           <div
             ref={triggerRef}
