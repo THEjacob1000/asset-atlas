@@ -34,11 +34,6 @@ export const useCryptoStore = create<CryptoState>()((set) => ({
     set((state) => {
       if (state.compare) {
         const isSelected = state.selectedCoin.includes(coin);
-        console.log(
-          isSelected
-            ? state.selectedCoin.filter((id) => id !== coin)
-            : [...state.selectedCoin, coin]
-        );
         const newSelectedCoin = isSelected
           ? state.selectedCoin.filter((id) => id !== coin).length > 0
             ? state.selectedCoin.filter((id) => id !== coin)
@@ -53,9 +48,6 @@ export const useCryptoStore = create<CryptoState>()((set) => ({
           selectedCoin: newSelectedCoin,
         };
       } else {
-        console.log(
-          coin === state.selectedCoin[0] ? ["bitcoin"] : [coin]
-        );
         return {
           selectedCoin:
             coin === state.selectedCoin[0] ? ["bitcoin"] : [coin],

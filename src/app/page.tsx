@@ -155,7 +155,7 @@ export default function Home() {
                     ></div>
                     {timeframes.map((tf, index) => (
                       <button
-                        key={index}
+                        key={tf}
                         className={`relative w-full font-semibold z-10 ${
                           index === timeframe
                             ? "text-primary-foreground"
@@ -163,7 +163,7 @@ export default function Home() {
                         }`}
                         onClick={() => {
                           setTimeframe(index);
-                          console.log(timeframe);
+                          // console.log(timeframe);
                         }}
                       >
                         {tf}

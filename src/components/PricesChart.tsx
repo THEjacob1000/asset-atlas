@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import "chartjs-adapter-date-fns";
 import { startOfToday, subMonths, format, subDays } from "date-fns";
 import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
+import { cn, findStartDate } from "@/lib/utils";
 import { Skeleton } from "./ui/skeleton";
 import { Currency } from "@/lib/types";
 
@@ -22,9 +22,9 @@ const PricesChart = ({
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const today = useMemo(() => new Date(), []);
   useEffect(() => {
     setIsLoading(true);
-    const timeframes = ["1D", "7D", "14D", "1M"];
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy();
       chartInstanceRef.current = null;
@@ -33,26 +33,7 @@ const PricesChart = ({
     if (chartRef.current) {
       const chartContext = chartRef.current.getContext("2d");
       if (chartContext) {
-        let startDate;
-        switch (timeframes[timeframe]) {
-          case "1D":
-            startDate = subDays(startOfToday(), 1);
-            break;
-          case "7D":
-            startDate = subDays(startOfToday(), 7);
-            break;
-          case "14D":
-            startDate = subDays(startOfToday(), 14);
-            break;
-          case "1M":
-            startDate = subMonths(startOfToday(), 1);
-            break;
-          default:
-            startDate = subMonths(startOfToday(), 1);
-            break;
-        }
-        const today = startOfToday(); // Use today's date as the end of the range
-
+        const startDate = findStartDate(timeframe);
         chartInstanceRef.current = new Chart(chartContext, {
           type: "line",
           data: {
@@ -144,9 +125,8 @@ const PricesChart = ({
         chartInstanceRef.current.destroy();
       }
     };
-  }, [prices, timeframe, currency]);
+  }, [prices, timeframe, currency, today]);
 
-  const today = new Date();
   const formattedDate = format(today, "MMMM dd, yyyy");
 
   return (

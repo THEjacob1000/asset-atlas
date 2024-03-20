@@ -8,7 +8,7 @@ import {
   startOfToday,
   subMonths,
 } from "date-fns";
-import { cn } from "@/lib/utils";
+import { cn, findStartDate } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { Skeleton } from "./ui/skeleton";
 import { Currency } from "@/lib/types";
@@ -39,24 +39,7 @@ const VolumeChart = ({
 
     if (chartRef.current) {
       const chartContext = chartRef.current.getContext("2d");
-      let startDate;
-      switch (timeframes[timeframe]) {
-        case "1D":
-          startDate = subDays(startOfToday(), 1);
-          break;
-        case "7D":
-          startDate = subDays(startOfToday(), 7);
-          break;
-        case "14D":
-          startDate = subDays(startOfToday(), 14);
-          break;
-        case "1M":
-          startDate = subMonths(startOfToday(), 1);
-          break;
-        default:
-          startDate = subMonths(startOfToday(), 1);
-          break;
-      }
+      const startDate = findStartDate(timeframe);
       if (chartContext) {
         const today = startOfDay(new Date());
         chartInstanceRef.current = new Chart(chartContext, {

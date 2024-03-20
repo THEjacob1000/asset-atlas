@@ -111,7 +111,27 @@ function CoinList({
   position: "first" | "second";
 }) {
   const cryptoData = useCryptoStore((state) => state.cryptoData);
+  const handleSelectCoin = (value: string) => {
+    const newCoin = cryptoData.find((c) => c.id === value) || null;
 
+    if (newCoin) {
+      setSelectedCoin(newCoin);
+
+      const currentSelectedCoins =
+        useCryptoStore.getState().selectedCoin;
+      let updatedSelectedCoins = [...currentSelectedCoins];
+
+      if (position === "first") {
+        updatedSelectedCoins[0] = newCoin.id;
+      } else {
+        if (updatedSelectedCoins.length < 2) {
+          updatedSelectedCoins.push(newCoin.id);
+        } else {
+          updatedSelectedCoins[1] = newCoin.id;
+        }
+      }
+    }
+  };
   return (
     <Command>
       <CommandInput placeholder="Choose coin..." />
@@ -123,36 +143,7 @@ function CoinList({
               key={coin.id}
               className="cursor-pointer"
               value={coin.id}
-              onSelect={(value) => {
-                const newCoin =
-                  cryptoData.find((c) => c.id === value) || null;
-
-                if (newCoin) {
-                  setSelectedCoin(newCoin);
-
-                  const currentSelectedCoins =
-                    useCryptoStore.getState().selectedCoin;
-                  let updatedSelectedCoins = [
-                    ...currentSelectedCoins,
-                  ];
-
-                  if (position === "first") {
-                    updatedSelectedCoins[0] = newCoin.id;
-                  } else {
-                    if (updatedSelectedCoins.length < 2) {
-                      updatedSelectedCoins.push(newCoin.id);
-                    } else {
-                      updatedSelectedCoins[1] = newCoin.id;
-                    }
-                  }
-
-                  useCryptoStore
-                    .getState()
-                    .setSelectedCoins(updatedSelectedCoins);
-
-                  setOpen(false);
-                }
-              }}
+              onSelect={handleSelectCoin}
             >
               {capitalizeWords(coin.id)}
             </CommandItem>
