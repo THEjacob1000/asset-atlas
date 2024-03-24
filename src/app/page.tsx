@@ -1,6 +1,7 @@
 "use client";
 
 import CoinCarousel from "@/components/CoinCarousel";
+import CoinsTable from "@/components/CoinsTable";
 import Converter from "@/components/Converter";
 import PricesChart from "@/components/PricesChart";
 import PricesCompare from "@/components/PricesCompare";
@@ -163,7 +164,6 @@ export default function Home() {
                         }`}
                         onClick={() => {
                           setTimeframe(index);
-                          // console.log(timeframe);
                         }}
                       >
                         {tf}
@@ -178,6 +178,7 @@ export default function Home() {
       ) : (
         <Converter />
       )}
+      <CoinsTable coins={cryptoData} />
     </div>
   );
 }
