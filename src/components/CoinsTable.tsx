@@ -71,7 +71,7 @@ const CoinsTable = ({ coins }: CoinsTableProps) => {
               ></div>
               {timeframes.map((tf, index) => (
                 <button
-                  key={index}
+                  key={tf}
                   className={`relative w-full font-semibold z-10 ${
                     index === mobileActive
                       ? "text-primary-foreground"
