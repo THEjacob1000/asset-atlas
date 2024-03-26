@@ -2,6 +2,7 @@
 
 import CoinCarousel from "@/components/CoinCarousel";
 import CoinsTable from "@/components/CoinsTable";
+import CoinsTable from "@/components/CoinsTable";
 import Converter from "@/components/Converter";
 import PricesChart from "@/components/PricesChart";
 import PricesCompare from "@/components/PricesCompare";
