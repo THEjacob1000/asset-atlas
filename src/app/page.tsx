@@ -11,7 +11,7 @@ import { useCryptoStore } from "@/lib/store";
 import { Coin, Currency } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import axios from "axios";
-import { LineChart, X } from "lucide-react";
+import { ChevronUp, LineChart, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -67,7 +67,7 @@ export default function Home() {
   };
   return (
     <div className="mx-8 my-4">
-      <div className="relative w-full md:w-1/4 h-16 p-1 bg-card/70 rounded-md gap-1 mb-8 mx-8 hidden md:block">
+      <div className="relative w-full md:w-1/3 lg:w-1/4 h-16 p-1 bg-card/70 rounded-md gap-1 mb-8 mx-8 hidden md:block">
         <div className="relative w-11/12 h-10 m-2 bg-card rounded-md flex items-center gap-1 overflow-hidden">
           <div
             className={`absolute top-0 ${sliderPosition} h-full w-1/2 bg-primary transition-all duration-300 ease-in-out rounded-md`}
@@ -179,6 +179,18 @@ export default function Home() {
         <Converter />
       )}
       <CoinsTable coins={cryptoData} />
+      <div className="w-full flex justify-center items-center">
+        <Button
+          onClick={() =>
+            window.scrollTo({ top: 0, behavior: "smooth" })
+          }
+          className="flex flex-col h-12"
+          variant={"outline"}
+        >
+          <ChevronUp />
+          Back To Top
+        </Button>
+      </div>
     </div>
   );
 }
