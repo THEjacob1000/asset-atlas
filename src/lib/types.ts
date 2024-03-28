@@ -44,3 +44,48 @@ export type Coin = {
   total_supply: number;
   total_volume: number;
 };
+
+export type CoinData = {
+  _id: string;
+  id: string;
+  additional_notices: any[];
+  asset_platform_id: null | string;
+  block_time_in_minutes: number;
+  categories: string[];
+  community_data: {
+    [key: string]: any;
+  };
+  country_origin: string;
+  description: {
+    [language: string]: string;
+  };
+  detail_platforms: {
+    [key: string]: any;
+  };
+  genesis_date: string;
+  hashing_algorithm: string;
+  image: {
+    [key: string]: string;
+  };
+  lastUpdate: Date | string;
+  last_updated: string;
+  links: {
+    [key: string]: any;
+  };
+  market_cap_rank: number;
+  market_data: {
+    [key: string]: any;
+  };
+  name: string;
+  platforms: {
+    [key: string]: string | null;
+  };
+  preview_listing: boolean;
+  public_notice: null | string;
+  sentiment_votes_down_percentage: number;
+  sentiment_votes_up_percentage: number;
+  status_updates: any[];
+  symbol: string;
+  watchlist_portfolio_users: number;
+  web_slug: string;
+};
