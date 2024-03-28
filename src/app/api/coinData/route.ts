@@ -32,7 +32,7 @@ export async function GET(request: Request) {
           { $set: { ...newData, lastUpdate: now } },
           { upsert: true }
         );
-      console.log(newData);
+      // console.log(newData);
       return NextResponse.json(newData);
     } catch (error: any) {
       console.log(error);
