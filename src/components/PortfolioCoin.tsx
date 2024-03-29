@@ -26,7 +26,6 @@ const PortfolioCoin = ({ portData }: PortfolioCoinProps) => {
   const currency = currencies[selectedCurrency.currency];
   const currencyKey =
     selectedCurrency.currency.toLowerCase() as keyof ValueAtBuy;
-  // console.log(portData);
   const startingPrice =
     portData.valueAtBuy[currencyKey] * portData.amountOwned;
   const currentPrice =
@@ -160,6 +159,7 @@ const PortfolioCoin = ({ portData }: PortfolioCoinProps) => {
                   )}
                 >
                   %{(currentPrice / startingPrice).toFixed(2)}
+
                 </div>
               </div>
             </div>

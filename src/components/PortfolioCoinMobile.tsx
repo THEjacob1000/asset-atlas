@@ -1,13 +1,10 @@
 import Image from "next/image";
 import { capitalizeWords, cn } from "@/lib/utils";
 import { PortfolioData, ValueAtBuy } from "@/app/portfolio/page";
-import { Edit, Triangle } from "lucide-react";
+
+import { Triangle } from "lucide-react";
 import { useCryptoStore } from "@/lib/store";
-import { Progress } from "./ui/progress";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
 import { format } from "date-fns";
-import CoinEdit from "./CoinEdit";
 import {
   Card,
   CardDescription,
@@ -35,7 +32,6 @@ const PortfolioCoin = ({ portData }: PortfolioCoinProps) => {
   const currency = currencies[selectedCurrency.currency];
   const currencyKey =
     selectedCurrency.currency.toLowerCase() as keyof ValueAtBuy;
-  // console.log(portData);
   if (!updatedCoinData) return null;
   const startingPrice =
     portData.valueAtBuy[currencyKey] * portData.amountOwned;

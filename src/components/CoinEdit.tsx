@@ -1,6 +1,4 @@
 "use client";
-
-import { Coin } from "@/components/CoinCard";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import {
@@ -37,8 +35,9 @@ import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { useEffect, useState } from "react";
 import { PortfolioData } from "@/app/portfolio/page";
-import { useCryptoStore } from "@/lib/store";
 import { Edit } from "lucide-react";
+import { Coin } from "@/lib/types";
+
 
 const FormSchema = z.object({
   amount: z
@@ -68,7 +67,6 @@ const CoinForm = ({ portData }: CoinFormProps) => {
     },
   });
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    // console.log(format(data.dateAdded, "dd-MM-yyyy"));
     const fetchPrice = async () => {
       try {
         const response = await axios.get(
