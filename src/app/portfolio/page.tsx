@@ -8,6 +8,8 @@ import CoinForm from "@/components/CoinForm";
 import { Button } from "@/components/ui/button";
 import { ChevronUp } from "lucide-react";
 import { Coin } from "@/lib/types";
+import PortfolioCoin from "@/components/PortfolioCoin";
+import PortfolioCoinMobile from "@/components/PortfolioCoinMobile";
 
 export type ValueAtBuy = {
   usd: number;
@@ -50,6 +52,18 @@ const Page = () => {
       <div className="flex justify-between items-center w-11/12 mx-auto">
         <div className="text-xl">Portfolio</div>
         <CoinForm cryptoData={cryptoData} />
+      </div>
+      <div className="flex flex-col justify-center items-center w-full mt-6 mb-32">
+        {portfolioCoins &&
+          portfolioCoins.map((coin, index) => {
+            if (!coin) return null;
+            return (
+              <div key={index} className="m-4 w-11/12">
+                <PortfolioCoin portData={coin} />
+                <PortfolioCoinMobile portData={coin} />
+              </div>
+            );
+          })}
       </div>
       {portfolioCoins.length > 2 && (
         <div className="w-full flex justify-center items-center mb-8">
