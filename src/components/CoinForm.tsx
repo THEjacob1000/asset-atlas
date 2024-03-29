@@ -79,7 +79,6 @@ const CoinForm = ({ cryptoData }: CoinFormProps) => {
     },
   });
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    // console.log(format(data.dateAdded, "dd-MM-yyyy"));
     const fetchPrice = async () => {
       try {
         const response = await axios.get(
@@ -108,7 +107,6 @@ const CoinForm = ({ cryptoData }: CoinFormProps) => {
           valueAtBuy: fetchedPrice,
         },
       };
-      // console.log(portfolioData);
 
       const addPortfolioData = async () => {
         try {
@@ -121,7 +119,6 @@ const CoinForm = ({ cryptoData }: CoinFormProps) => {
               },
             }
           );
-          // console.log("Portfolio data added:", response.data);
           window.location.reload();
           toast({
             title: "Coin added successfully",
