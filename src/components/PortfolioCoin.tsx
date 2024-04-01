@@ -3,7 +3,6 @@ import { capitalizeWords, cn } from "@/lib/utils";
 import { PortfolioData, ValueAtBuy } from "@/app/portfolio/page";
 import { useCryptoStore } from "@/lib/store";
 import { Progress } from "./ui/progress";
-import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { format } from "date-fns";
 import CoinEdit from "./CoinEdit";
@@ -159,8 +158,8 @@ const PortfolioCoin = ({ portData }: PortfolioCoinProps) => {
                       : "text-cyan-400"
                   )}
                 >
-                  {selectedCurrency.symbol +
-                    (currentPrice / startingPrice).toFixed(2)}
+                  %{(currentPrice / startingPrice).toFixed(2)}
+
                 </div>
               </div>
             </div>
