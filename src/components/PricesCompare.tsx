@@ -2,9 +2,9 @@
 import { Chart } from "chart.js/auto";
 import { useTheme } from "next-themes";
 import { useEffect, useRef } from "react";
-import { Coin } from "./CoinCard";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { Coin } from "@/lib/types";
 
 interface PriceChartProps {
   prices: Coin;

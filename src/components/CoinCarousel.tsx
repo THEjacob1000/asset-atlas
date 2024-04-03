@@ -6,10 +6,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
-import CoinCard, { Coin } from "./CoinCard";
+import CoinCard from "./CoinCard";
 import { useCryptoStore } from "@/lib/store";
 import { Skeleton } from "./ui/skeleton";
 import { cn } from "@/lib/utils";
+import { Coin } from "@/lib/types";
 
 interface CoinCarouselProps {
   cryptoData: Coin[];
