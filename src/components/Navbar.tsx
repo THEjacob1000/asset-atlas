@@ -18,6 +18,7 @@ import Searchbar from "./Searchbar";
 import { Currency } from "@/lib/types";
 import { useCryptoStore } from "@/lib/store";
 import MarketData from "./MarketData";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 
 const Navbar = () => {
   const [currency, setCurrency] = useState(
@@ -40,14 +41,15 @@ const Navbar = () => {
   };
 
   const router = useRouter();
+
   return (
-    <div className="flex flex-col w-full fixed top-0 z-10 h-36">
+    <div className="flex flex-col w-full fixed top-0 z-50 h-36">
       <div className="hidden md:block">
         <MarketData />
       </div>
-      <nav
+      <MaxWidthWrapper
         className={cn(
-          "flex justify-around items-center py-6 min-w-full max-h-24 fixed md:top-12 z-10 h-24",
+          "flex justify-between items-center py-6 w-full max-h-24 fixed md:top-12 z-10 h-24 max-w-full",
           theme === "light" ? "bg-white" : "bg-background"
         )}
       >
@@ -57,7 +59,7 @@ const Navbar = () => {
             Asset Atlas
           </div>
         </Link>
-        <div className="w-[265px] h-12 justify-start items-start gap-6 hidden md:inline-flex">
+        <div className="h-12 justify-start items-start gap-6 hidden md:inline-flex">
           <Button
             className="px-4 py-3 rounded-md justify-center items-center gap-2 flex hover:bg-background/40"
             variant={"ghost"}
@@ -91,11 +93,11 @@ const Navbar = () => {
             </div>
           </Button>
         </div>
-        <div className="flex justify-between w-1/4 items-center gap-2">
+        <div className="flex justify-between items-center gap-2">
           <Searchbar />
           <DropdownMenu>
             <DropdownMenuTrigger className="focus:outline-none">
-              <div className="flex bg-card/40 px-3 py-2 rounded-lg h-10">
+              <div className="flex bg-card px-3 py-2 rounded-lg h-10">
                 <div className="text-background bg-foreground rounded-full h-6 w-6 mr-2 lg:block hidden">
                   {currency.symbol}
                 </div>
@@ -103,7 +105,7 @@ const Navbar = () => {
                 <ChevronDown className="w-4 h-4 ml-2 mt-1" />
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-card/50 border-input/5">
+            <DropdownMenuContent className="bg-card border-input/5">
               {currencies
                 .filter((c) => c.currency !== currency.currency)
                 .map((c, index) => (
@@ -121,7 +123,7 @@ const Navbar = () => {
           </DropdownMenu>
           <ModeToggle />
         </div>
-      </nav>
+      </MaxWidthWrapper>
       <div className="block md:hidden">
         <MarketData />
       </div>

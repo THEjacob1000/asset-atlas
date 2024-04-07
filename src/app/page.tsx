@@ -124,7 +124,7 @@ export default function Home() {
             ) : (
               <div className="flex flex-col items-center w-full">
                 {selectedCoins[0] === "bitcoin" ? (
-                  <div className="flex flex-wrap justify-center gap-4 w-full mb-8">
+                  <div className="flex flex-wrap lg:flex-nowrap justify-center gap-4 w-full mb-8">
                     <PricesChart
                       prices={prices}
                       timeframe={timeframe}
@@ -140,7 +140,7 @@ export default function Home() {
                   <PricesCompare prices={prices1} type={1} />
                 )}
 
-                <div className="relative w-full lg:w-1/4 h-16 p-1 bg-card/70 rounded-md gap-1 mb-8 mx-8">
+                <div className="relative w-full lg:w-1/4 h-16 p-1 bg-card/70 rounded-md gap-1 mx-8">
                   <div className="relative w-11/12 h-10 m-2 bg-card rounded-md flex items-center gap-1 overflow-hidden">
                     <div
                       className={cn(

@@ -37,7 +37,7 @@ const Searchbar = () => {
             .map((coin, index) => (
               <div
                 key={index}
-                className="flex items-center justify-start p-2 hover:bg-card/70 cursor-pointer gap-2"
+                className="flex items-center justify-start p-2 hover:bg-background/60 cursor-pointer gap-2"
               >
                 <Image
                   src={coin.image}
@@ -52,7 +52,7 @@ const Searchbar = () => {
         : coins.map((coin, index) => (
             <div
               key={index}
-              className="flex items-center justify-start p-2 hover:bg-card/70 cursor-pointer gap-2"
+              className="flex items-center justify-start p-2 hover:bg-background/60 cursor-pointer gap-2"
             >
               <Image
                 src={coin.image}
@@ -73,7 +73,7 @@ const Searchbar = () => {
         <PopoverTrigger asChild className="w-full">
           <div
             ref={triggerRef}
-            className="flex items-center bg-card/40 rounded-lg h-10 w-full"
+            className="flex items-center bg-card rounded-lg h-10 w-full"
           >
             <Search className="w-6 h-6 ml-2" />
             <Input
@@ -86,9 +86,7 @@ const Searchbar = () => {
             />
           </div>
         </PopoverTrigger>
-        <PopoverContent className="bg-transparent">
-          {content}
-        </PopoverContent>
+        <PopoverContent className="bg-card">{content}</PopoverContent>
       </Popover>
     );
   } else {
@@ -97,7 +95,7 @@ const Searchbar = () => {
         <DrawerTrigger asChild>
           <Button
             variant={"secondary"}
-            className="bg-card/40"
+            className="bg-card"
             onClick={() => setOpen(true)}
           >
             <Search className="w-6 h-6" />

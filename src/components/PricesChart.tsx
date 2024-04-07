@@ -150,7 +150,7 @@ const PricesChart = ({
       ) : (
         <div
           className={cn(
-            "flex-0 lg:w-5/12 w-full p-12 rounded-lg",
+            "flex-0 lg:w-1/2 w-full p-12 rounded-lg",
             theme === "light" ? "bg-white" : "bg-[#191932]"
           )}
         >
