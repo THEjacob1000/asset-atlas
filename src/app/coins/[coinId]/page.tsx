@@ -40,7 +40,7 @@ const Page = ({ params }: { params: { coinId: string } }) => {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      console.log("Link copied to clipboard");
+      // console.log("Link copied to clipboard");
       toast({
         title: "Link copied to clipboard",
       });
@@ -63,7 +63,7 @@ const Page = ({ params }: { params: { coinId: string } }) => {
           `/api/coinData?coinId=${coinId}`
         );
         const data = response.data;
-        console.log(data);
+        // console.log(data);
         setCoinData(data);
       } catch (error) {
         console.error("Error:", error);
@@ -131,9 +131,9 @@ const Page = ({ params }: { params: { coinId: string } }) => {
     `<a href="$1" style="color: hsl(240 59% 61%);">$2</a>`
   );
   return (
-    <div className="flex flex-col w-full gap-4 mt-12">
-      <div className="flex justify-around items-start flex-wrap gap-4">
-        <div className="flex flex-col justify-center items-center w-5/6 md:w-1/3 lg:w-1/4 gap-3 shrink-0">
+    <div className="flex flex-col w-full gap-4 mt-12 px-20">
+      <div className="flex flex-wrap justify-around items-start gap-4 w-full">
+        <div className="flex flex-col justify-center items-center flex-grow flex-shrink-0 basis-1/6 md:basis-1/3 lg:basis-1/4 gap-3">
           <div className="bg-card rounded-lg p-8 flex flex-col items-center justify-center gap-4 w-full">
             <Image
               src={coinData.image.large}
@@ -165,7 +165,7 @@ const Page = ({ params }: { params: { coinId: string } }) => {
             </Button>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center w-5/6 md:w-1/3 lg:w-1/4 bg-card rounded-lg gap-4 p-8 shrink-0">
+        <div className="flex flex-col justify-center items-center flex-grow flex-shrink-0 basis-1/3 lg:basis-1/4 bg-card rounded-lg gap-4 p-8">
           <div className="text-3xl">
             {currency.symbol +
               coinData.market_data.current_price[currencyShorthand]}
@@ -238,7 +238,7 @@ const Page = ({ params }: { params: { coinId: string } }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-start items-center w-5/6 lg:w-1/4 bg-card rounded-lg gap-2 p-8 shrink-0">
+        <div className="flex flex-col justify-start items-center flex-grow flex-shrink-0 basis-1/2 lg:basis-1/4 bg-card rounded-lg gap-2 p-8">
           <div className="flex justify-start gap-3 items-center w-full">
             <div className="bg-primary rounded-md  w-8 h-8 flex justify-center items-center font-bold">
               +
@@ -391,9 +391,9 @@ const Page = ({ params }: { params: { coinId: string } }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-start items-center lg:items-start px-16 py-8">
+      <div className="flex flex-col justify-start items-center lg:items-start py-8">
         <div className="text-2xl font-bold mb-4">Description</div>
-        <div className="w-full flex flex-col lg:flex-row justify-center lg:justify-between items-center lg:items-start gap-20">
+        <div className="w-full flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start gap-20">
           <div className="flex flex-col justify-start items-start w-3/4">
             <div
               ref={setRef}
@@ -422,26 +422,28 @@ const Page = ({ params }: { params: { coinId: string } }) => {
               </Button>
             ) : null}
           </div>
-          <div className="flex flex-col gap-6 lg:w-1/3 w-fit">
+          <div className="flex flex-col gap-6 md:w-1/3 w-fit">
             {coinData.links.blockchain_site
               .slice(0, 3)
               .map((link: string, index: number) => (
                 <div
-                  className="flex justify-center items-center bg-card rounded-lg py-2 w-full gap-2"
+                  className="flex items-center bg-card rounded-lg py-2 px-2 gap-2"
                   key={index}
+                  style={{ maxWidth: "100%" }}
                 >
-                  <Link href={link} target="_blank">
-                    <Button variant={"ghost"}>
-                      <LinkIcon className="h-4 w-4" />
-                    </Button>
-                  </Link>
-                  <Link href={link} target="_blank">
-                    <div>
-                      {link.length > 50
-                        ? `${link.substring(0, 50)}...`
-                        : link}
-                    </div>
-                  </Link>
+                  <Button variant={"ghost"}>
+                    <LinkIcon className="h-4 w-4" />
+                  </Button>
+                  <div className="flex flex-grow min-w-0">
+                    <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="truncate text-ellipsis overflow-hidden"
+                    >
+                      {link}
+                    </a>
+                  </div>
                   <Button
                     variant={"ghost"}
                     onClick={() => copyToClipboard(link)}
