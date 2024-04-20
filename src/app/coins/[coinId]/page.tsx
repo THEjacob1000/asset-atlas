@@ -382,6 +382,7 @@ const Page = ({ params }: { params: { coinId: string } }) => {
             </div>
 
             <Progress
+              className="bg-foreground/20"
               value={
                 (coinData.market_data.circulating_supply /
                   coinData.market_data.total_supply) *
