@@ -32,7 +32,7 @@ const PortfolioCoin = ({ portData }: PortfolioCoinProps) => {
     coin.current_price * currency * portData.amountOwned;
   return (
     <div className="lg:flex items-center bg-accent/40 min-w-full hidden">
-      <div className="flex flex-col min-w-1/6 justify-center items-center p-4 gap-8 flex-grow">
+      <div className="flex flex-col w-1/6 justify-center items-center p-4 gap-8 flex-grow">
         <div className="bg-primary/10 p-4 rounded-md">
           <Image
             src={coin.image}
@@ -93,6 +93,7 @@ const PortfolioCoin = ({ portData }: PortfolioCoinProps) => {
             <div className="flex flex-col gap-2 justify-center items-stretch">
               <div>Market Cap vs Volume</div>
               <Progress
+                className="bg-foreground/10"
                 value={coin.market_cap / coin.total_volume}
                 indicatorColor="bg-cyan-400"
               />
@@ -159,7 +160,6 @@ const PortfolioCoin = ({ portData }: PortfolioCoinProps) => {
                   )}
                 >
                   %{(currentPrice / startingPrice).toFixed(2)}
-
                 </div>
               </div>
             </div>

@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface DesktopTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -50,7 +52,15 @@ export function DesktopTable<TData, TValue>({
       columnFilters,
     },
   });
-
+  const router = useRouter();
+  const handleNext = () => {
+    router.push("#coins-table");
+    table.nextPage();
+  };
+  const handlePrevious = () => {
+    router.push("#coins-table");
+    table.previousPage();
+  };
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
@@ -122,7 +132,7 @@ export function DesktopTable<TData, TValue>({
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.previousPage()}
+          onClick={handlePrevious}
           disabled={!table.getCanPreviousPage()}
         >
           Previous
@@ -130,10 +140,10 @@ export function DesktopTable<TData, TValue>({
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.nextPage()}
+          onClick={handleNext}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          <Link href="#coins-table">Next</Link>
         </Button>
       </div>
     </div>

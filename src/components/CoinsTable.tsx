@@ -54,8 +54,8 @@ const CoinsTable = ({ coins }: CoinsTableProps) => {
     sparkline: coin.sparkline_in_7d.price,
   }));
   return (
-    <div className="w-full">
-      <div className="container mx-auto py-10 lg:flex hidden w-full">
+    <div className="w-full pt-36 mt-0" id="coins-table">
+      <div className="container mx-auto py-10 lg:flex hidden min-w-full">
         <DesktopTable columns={desktopColumns} data={desktopData} />
       </div>
       <div className="flex flex-col justify-between min-w-full lg:hidden mt-8 items-center">
