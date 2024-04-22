@@ -40,7 +40,6 @@ const Page = ({ params }: { params: { coinId: string } }) => {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      // console.log("Link copied to clipboard");
       toast({
         title: "Link copied to clipboard",
       });
@@ -63,7 +62,6 @@ const Page = ({ params }: { params: { coinId: string } }) => {
           `/api/coinData?coinId=${coinId}`
         );
         const data = response.data;
-        // console.log(data);
         setCoinData(data);
       } catch (error) {
         console.error("Error:", error);
