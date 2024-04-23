@@ -3,6 +3,7 @@
 import CoinCarousel from "@/components/CoinCarousel";
 import CoinsTable from "@/components/CoinsTable";
 import Converter from "@/components/Converter";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import PricesChart from "@/components/PricesChart";
 import PricesCompare from "@/components/PricesCompare";
 import VolumeChart from "@/components/VolumeChart";
@@ -21,6 +22,7 @@ export default function Home() {
   const [compare, setCompare] = useState<boolean>(
     useCryptoStore.getState().compare
   );
+  const [isVisible, setIsVisible] = useState(false);
   const cryptoData = useCryptoStore((state) => state.cryptoData);
   const pageType = useCryptoStore((state) => state.pageType);
   const setPageType = useCryptoStore((state) => state.changePageType);
@@ -60,11 +62,32 @@ export default function Home() {
     };
     fetchBitcoinData();
   }, [currency, prices1, pageType]);
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        // Change 300 to the scroll distance at which you want the button to appear
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const toggleCompare = () => {
     useCryptoStore.getState().changeCompare();
     setCompare(!compare);
   };
+  if (!cryptoData) return <h1>Loading...</h1>;
   return (
     <div className="mx-8 my-4">
       <div className="relative w-full md:w-1/3 lg:w-1/4 h-16 p-1 bg-card/70 rounded-md gap-1 mb-8 mx-8 hidden md:block">
@@ -178,12 +201,15 @@ export default function Home() {
       ) : (
         <Converter />
       )}
-      <CoinsTable coins={cryptoData} />
-      <div className="w-full flex justify-center items-center">
+      <CoinsTable />
+      <div
+        className={cn(
+          `w-full flex justify-center items-center fixed bottom-6 z-50 opacity-0 transition-opacity ease-in-out duration-300`,
+          isVisible && "opacity-100"
+        )}
+      >
         <Button
-          onClick={() =>
-            window.scrollTo({ top: 0, behavior: "smooth" })
-          }
+          onClick={scrollToTop}
           className="flex flex-col h-12"
           variant={"outline"}
         >

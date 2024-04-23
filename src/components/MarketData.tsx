@@ -34,9 +34,10 @@ const MarketData = () => {
         console.error("Error:", error);
       }
     };
+
     const fetchCryptoData = async () => {
       try {
-        const response = await axios.get<Coin[]>("/api/cryptoData");
+        const response = await axios.get<Coin[]>("/api/dataInit");
         setCryptoData(response.data);
         useCryptoStore.getState().changeCryptoData(response.data);
         useCryptoStore.getState().changeCryptoDataLoading(false);
@@ -47,6 +48,7 @@ const MarketData = () => {
     fetchCryptoData();
     fetchMarketData();
   }, []);
+
   if (!marketData || !cryptoData) return null;
   return (
     <div className="h-12 w-full bg-card flex justify-center gap-10 sm:gap-16 lg:gap-20 items-center z-10 mt-24 md:mt-0">

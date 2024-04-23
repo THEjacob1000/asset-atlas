@@ -39,3 +39,19 @@ export function findStartDate(timeframe: number) {
   }
   return startDate;
 }
+
+export function compressNumber(num: number): string {
+  const billion = 1e9;
+  const million = 1e6;
+  const thousand = 1e3;
+
+  if (Math.abs(num) >= billion) {
+    return (num / billion).toFixed(2) + "B";
+  } else if (Math.abs(num) >= million) {
+    return (num / million).toFixed(2) + "M";
+  } else if (Math.abs(num) >= thousand) {
+    return (num / thousand).toFixed(2) + "K";
+  } else {
+    return num.toString();
+  }
+}
