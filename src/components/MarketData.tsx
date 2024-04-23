@@ -37,7 +37,7 @@ const MarketData = () => {
 
     const fetchCryptoData = async () => {
       try {
-        const response = await axios.get<Coin[]>("/api/dataInit");
+        const response = await axios.get<Coin[]>("/api/cryptoData");
         setCryptoData(response.data);
         useCryptoStore.getState().changeCryptoData(response.data);
         useCryptoStore.getState().changeCryptoDataLoading(false);
