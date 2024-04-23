@@ -6,6 +6,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import CoinItem from "./CoinItem";
 import { useCryptoStore } from "@/lib/store";
 import { Button } from "./ui/button";
+import { ArrowDownNarrowWide, ArrowUpNarrowWide } from "lucide-react";
+import Image from "next/image";
 
 type sortType =
   | "rank"
@@ -25,6 +27,7 @@ const CoinsTable = () => {
   const [page, setPage] = useState(1);
   const [mobileActive, setMobileActive] = useState(0);
   const [sortType, setSortType] = useState<sortType>("rank");
+  const [toggle, setToggle] = useState(false);
 
   const fetchCoins = async () => {
     setLoading(true);
@@ -41,7 +44,7 @@ const CoinsTable = () => {
   };
   const setSort = (sort: sortType) => {
     let sortedCoins = [...cryptoData];
-    const toggle = sort === sortType;
+    setToggle(sort === sortType);
     switch (sort) {
       case "rank":
         sortedCoins = sortedCoins.sort(
@@ -88,7 +91,6 @@ const CoinsTable = () => {
     setSortType(sort);
     if (toggle) {
       sortedCoins.reverse();
-      setSortType("");
     }
     setCoins([...sortedCoins.slice(0, page * 20 + 20)]);
   };
@@ -132,7 +134,15 @@ const CoinsTable = () => {
           dataLength={coins.length}
           next={fetchCoins}
           hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
+          loader={
+            <Image
+              src="/loading.svg"
+              alt="loading"
+              width={50}
+              height={50}
+              className="animate-spin"
+            />
+          }
           endMessage={
             <p style={{ textAlign: "center" }}>
               <b>Yay! You have seen it all</b>
@@ -143,10 +153,19 @@ const CoinsTable = () => {
           <div className="justify-between px-4 grid-cols-12 lg:grid hidden text-muted-foreground gap-3">
             <Button
               variant={"ghost"}
-              className="lg:block text-start"
+              className="lg:block text-start inline-flex justify-around"
               onClick={() => setSort("rank")}
             >
-              #
+              #{" "}
+              {sortType === "rank" ? (
+                toggle ? (
+                  <ArrowUpNarrowWide className="lg:inline h-4 w-4" />
+                ) : (
+                  <ArrowDownNarrowWide className="lg:inline h-4 w-4" />
+                )
+              ) : (
+                ""
+              )}
             </Button>
             <Button
               variant={"ghost"}
@@ -154,6 +173,15 @@ const CoinsTable = () => {
               onClick={() => setSort("name")}
             >
               Name
+              {sortType === "name" ? (
+                toggle ? (
+                  <ArrowUpNarrowWide className="lg:inline h-4 w-4" />
+                ) : (
+                  <ArrowDownNarrowWide className="lg:inline h-4 w-4" />
+                )
+              ) : (
+                ""
+              )}
             </Button>
             <Button
               variant={"ghost"}
@@ -161,6 +189,15 @@ const CoinsTable = () => {
               onClick={() => setSort("price")}
             >
               Price
+              {sortType === "price" ? (
+                toggle ? (
+                  <ArrowUpNarrowWide className="lg:inline h-4 w-4" />
+                ) : (
+                  <ArrowDownNarrowWide className="lg:inline h-4 w-4" />
+                )
+              ) : (
+                ""
+              )}
             </Button>
             <Button
               variant={"ghost"}
@@ -168,6 +205,15 @@ const CoinsTable = () => {
               onClick={() => setSort("1hr")}
             >
               1hr%
+              {sortType === "1hr" ? (
+                toggle ? (
+                  <ArrowUpNarrowWide className="lg:inline h-4 w-4" />
+                ) : (
+                  <ArrowDownNarrowWide className="lg:inline h-4 w-4" />
+                )
+              ) : (
+                ""
+              )}
             </Button>
             <Button
               variant={"ghost"}
@@ -175,6 +221,15 @@ const CoinsTable = () => {
               onClick={() => setSort("24hr")}
             >
               24hr%
+              {sortType === "24hr" ? (
+                toggle ? (
+                  <ArrowUpNarrowWide className="lg:inline h-4 w-4" />
+                ) : (
+                  <ArrowDownNarrowWide className="lg:inline h-4 w-4" />
+                )
+              ) : (
+                ""
+              )}
             </Button>
             <Button
               variant={"ghost"}
@@ -182,6 +237,15 @@ const CoinsTable = () => {
               onClick={() => setSort("7d")}
             >
               7d%
+              {sortType === "7d" ? (
+                toggle ? (
+                  <ArrowUpNarrowWide className="lg:inline h-4 w-4" />
+                ) : (
+                  <ArrowDownNarrowWide className="lg:inline h-4 w-4" />
+                )
+              ) : (
+                ""
+              )}
             </Button>
             <div className="lg:flex items-center justify-center rounded-md text-sm font-medium py-2 col-span-2 text-start">
               24h Volume / Market Cap
