@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useCryptoStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -9,6 +10,7 @@ type CoinCardProps = {
   coin: Coin;
 };
 const CoinCard = ({ coin }: CoinCardProps) => {
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
   const selectedCoins = useCryptoStore((state) => state.selectedCoin);
   const changeSelectedCoin = useCryptoStore(
@@ -39,7 +41,6 @@ const CoinCard = ({ coin }: CoinCardProps) => {
       });
     }
   };
-
   return (
     <Button
       variant={isSelected ? "default" : "secondary"}
@@ -87,7 +88,10 @@ const CoinCard = ({ coin }: CoinCardProps) => {
                   : "text-cyan-400"
               )}
             >
-              {coin.price_change_percentage_24h.toFixed(2)}%
+              {coin.price_change_percentage_24h
+                ? coin.price_change_percentage_24h.toFixed(2)
+                : 0}
+              %
             </div>
           </div>
         </div>
