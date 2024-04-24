@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { useCryptoStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { Coin, Currency } from "@/lib/types";
-import { useState } from "react";
 
 type CoinCardProps = {
   coin: Coin;
