@@ -40,7 +40,9 @@ const MarketData = () => {
         const response = await axios.get<Coin[]>("/api/cryptoData");
         setCryptoData(response.data);
         useCryptoStore.getState().changeCryptoData(response.data);
-        useCryptoStore.getState().changeCryptoDataLoading(false);
+        if (response.data) {
+          useCryptoStore.getState().changeCryptoDataLoading(false);
+        }
       } catch (error) {
         console.error("Error fetching crypto data:", error);
       }
